@@ -10,8 +10,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        /* --- TUO STILE ORIGINALE --- */
+        /* BASE E FRECCIA */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
         body {
             font-family: 'Poppins', sans-serif;
             display: flex; flex-direction: column; align-items: center;
@@ -19,31 +20,83 @@
             background-size: cover; background-position: center; background-attachment: fixed;
             transition: 0.4s; overflow-x: hidden; position: relative;
         }
-        #sfond-anim { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out; }
+
+        /* Sfondo animato */
+        #sfond-anim {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out;
+        }
         body.anim-on #sfond-anim { opacity: 1; z-index: 1; }
-        body.notte-on::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; backdrop-filter: brightness(30%); -webkit-backdrop-filter: brightness(30%); z-index: -1; }
-        #punt-pers { position: fixed; width: 12px; height: 12px; background: rgba(255, 255, 255, 0.8); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, background-color 0.3s; z-index: 9999; }
-        body.punt-su #punt-pers { width: 25px; height: 25px; background: rgba(255, 255, 255, 0.1); border: 1.5px solid #fff; }
+
+        /* Filtro scuro per notte */
+        body.notte-on::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            backdrop-filter: brightness(30%); -webkit-backdrop-filter: brightness(30%); z-index: -1;
+        }
+
+        #punt-pers {
+            position: fixed; width: 12px; height: 12px;
+            background: rgba(255, 255, 255, 0.8); border-radius: 50%;
+            pointer-events: none; transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.3s; z-index: 9999;
+        }
+        body.punt-su #punt-pers {
+            width: 25px; height: 25px; background: rgba(255, 255, 255, 0.1); border: 1.5px solid #fff;
+        }
+
         header, .box-link, footer { position: relative; z-index: 10; }
+
         header { text-align: center; margin: 20px 0; }
-        .cerchio-foto { width: 110px; height: 110px; margin: 0 auto; border-radius: 50%; overflow: hidden; border: 2px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .cerchio-foto {
+            width: 110px; height: 110px; margin: 0 auto;
+            border-radius: 50%; overflow: hidden; border: 2px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
         .img-prof { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
         .cerchio-foto:hover .img-prof { transform: scale(1.1); }
+
         h1 { color: #fff; font-size: 22px; margin-top: 15px; }
         .sotto-tit { color: rgba(255,255,255,0.7); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 25px; }
+
         .box-link { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
-        .btn-luce { position: relative; display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 18px; border-radius: 14px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); overflow: hidden; color: #fff; font-weight: 500; transition: 0.3s; width: 100%; }
-        .btn-luce::before { content: ""; position: absolute; top: var(--y, 0); left: var(--x, 0); width: 250px; height: 250px; background: radial-gradient(circle closest-side, rgba(231, 76, 60, 0.3), transparent); transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
-        body.notte-on .btn-luce::before { background: radial-gradient(circle closest-side, rgba(52, 152, 219, 0.4), transparent); }
+
+        .btn-luce {
+            position: relative; display: flex; align-items: center; justify-content: center;
+            text-decoration: none; padding: 18px; border-radius: 14px;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            overflow: hidden; color: #fff; font-weight: 500; transition: 0.3s;
+            width: 100%;
+        }
+
+        /* Effetto scia mouse */
+        .btn-luce::before {
+            content: ""; position: absolute; top: var(--y, 0); left: var(--x, 0);
+            width: 250px; height: 250px;
+            background: radial-gradient(circle closest-side, rgba(231, 76, 60, 0.3), transparent);
+            transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+
+        body.notte-on .btn-luce::before {
+            background: radial-gradient(circle closest-side, rgba(52, 152, 219, 0.4), transparent);
+        }
+
         .btn-luce:hover::before { opacity: 1; }
         .btn-luce:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.3); }
+
         .btn-luce i { margin-right: 12px; font-size: 1.3rem; color: #e74c3c; z-index: 1; }
         body.notte-on .btn-luce i { color: #3498db; }
+        
         .area-tema { margin-top: 25px; display: flex; justify-content: center; }
-        #tasto-notte { padding: 10px 20px; border-radius: 30px; font-size: 0.8rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
-        footer { margin-top: auto; padding: 20px 0; color: rgba(255,255,255,0.3); font-size: 0.6rem; text-transform: uppercase; text-align: center; }
+        #tasto-notte {
+            padding: 10px 20px; border-radius: 30px; font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
 
-        /* --- NUOVI STILI PARTE B --- */
+        footer { margin-top: auto; padding: 20px 0; color: rgba(255,255,255,0.3); font-size: 0.6rem; text-transform: uppercase; text-align: center;}
+
+        /* --- AGGIUNTE STILI PARTE B --- */
         .tabella-orari { 
             width: 100%; border-collapse: collapse; margin: 20px 0; 
             background: rgba(255, 255, 255, 0.05); color: #fff; font-size: 0.85rem; 
@@ -53,12 +106,12 @@
         .tabella-orari th { background: rgba(231, 76, 60, 0.3); }
         body.notte-on .tabella-orari th { background: rgba(52, 152, 219, 0.3); }
 
-        .form-box { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
-        .input-stile { padding: 12px; border-radius: 8px; border: none; background: rgba(255,255,255,0.9); font-family: 'Poppins', sans-serif; }
-        .btn-invia { background: #e74c3c; border: none; font-weight: bold; cursor: none; }
-        
-        .link-relativo { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; text-align: center; display: block; margin-bottom: 10px; }
-        .link-relativo:hover { color: #fff; text-decoration: underline; }
+        .form-box { display: flex; flex-direction: column; gap: 10px; margin: 10px 0; }
+        .input-stile { 
+            padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); 
+            background: rgba(255,255,255,0.1); color: white; font-family: 'Poppins', sans-serif;
+        }
+        .input-stile::placeholder { color: rgba(255,255,255,0.5); }
     </style>
 </head>
 <body style="background-image: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%), url('https://preview.redd.it/whats-yalls-pc-wallpapers-ill-go-first-v0-1uhd4skp2aud1.jpg?width=3840&format=pjpg&auto=webp&s=4592cda3a575bbceecb9bc66e045044d2e2f4783');">
@@ -67,22 +120,41 @@
     <div id="punt-pers"></div>
 
     <header>
-        <div class="cerchio-foto"><img src="foto-profilo.jpg" alt="Matteo" class="img-prof"></div>
+        <div class="cerchio-foto">
+            <img src="foto-profilo.jpg" alt="Matteo" class="img-prof">
+        </div>
         <h1>@_matteo_nobile_</h1>
         <p class="sotto-tit">Liceo Scientifico - Scienze Applicate</p>
     </header>
 
     <main class="box-link">
-        <a href="https://torricellimi.edu.it/notizie/732-pannelli-solari-sul-tetto-della-scuola" target="_blank" rel="noopener" class="btn-luce click"><i class="fas fa-solar-panel"></i> <span>Progetto Pannelli</span></a>
-        <a href="https://it.linkedin.com/in/matteo-nobile-456ba43b9" target="_blank" rel="noopener" class="btn-luce click"><i class="fab fa-linkedin"></i> <span>LinkedIn</span></a>
+        <a href="https://torricellimi.edu.it/notizie/732-pannelli-solari-sul-tetto-della-scuola" target="_blank" rel="noopener" class="btn-luce click">
+            <i class="fas fa-solar-panel"></i> <span>Progetto Pannelli Solari</span>
+        </a>
+
+        <a href="mailto:matteonobile@teamdigitale.torricellimi.edu.it" class="btn-luce click">
+            <i class="fas fa-envelope"></i> <span>Scrivimi via Email</span>
+        </a>
         
+        <a href="https://www.instagram.com/la_storia_insegna_?igsh=ZzhnazhtNDBmdTA2" target="_blank" rel="noopener" class="btn-luce click">
+            <i class="fab fa-instagram"></i> <span>la_storia_insegna_</span>
+        </a>
+        
+        <a href="https://it.linkedin.com/in/matteo-nobile-456ba43b9" target="_blank" rel="noopener" class="btn-luce click">
+            <i class="fab fa-linkedin"></i> <span>Profilo Professionale</span>
+        </a>
+
+        <a href="https://www.piazzaarmerina.org/agenda-eventi/palio-dei-normanni" target="_blank" rel="noopener" class="btn-luce click">
+            <i class="fas fa-shield-alt"></i> <span>Palio dei Normanni: Figurante</span>
+        </a>
+
         <table class="tabella-orari">
             <thead>
-                <tr><th>Giorno</th><th>Impegno Team Digitale</th></tr>
+                <tr><th>Giorno</th><th>Supporto Team Digitale</th></tr>
             </thead>
             <tbody>
-                <tr><td>Lunedì</td><td>Supporto Lab (Intervallo)</td></tr>
-                <tr><td>Giovedì</td><td>Manutenzione (09:00)</td></tr>
+                <tr><td>Lunedì</td><td>Intervallo (Laboratori)</td></tr>
+                <tr><td>Giovedì</td><td>09:00 (Manutenzione)</td></tr>
             </tbody>
         </table>
 
@@ -90,32 +162,43 @@
             <input type="text" placeholder="Nome" class="input-stile" required>
             <input type="email" id="email-campo" placeholder="Email" class="input-stile" required>
             <textarea placeholder="Messaggio" class="input-stile" rows="2"></textarea>
-            <button type="submit" class="btn-luce btn-invia click">Invia Messaggio</button>
+            <button type="submit" class="btn-luce click" style="border: none; background: rgba(231, 76, 60, 0.2);">
+                <i class="fas fa-paper-plane"></i> <span>Invia Messaggio</span>
+            </button>
         </form>
 
-        <a href="credits.html" class="link-relativo click">Visualizza Credits Progetto</a>
+        <a href="credits.html" class="btn-luce click">
+            <i class="fas fa-info-circle"></i> <span>Visualizza Credits</span>
+        </a>
 
-        <button id="tasto-festa" class="btn-luce click"><i class="fas fa-rocket"></i> <span>Modalità Allegria: ON</span></button>
+        <button id="tasto-festa" class="btn-luce click">
+            <i class="fas fa-rocket"></i> <span> Modalità Allegria: ON</span>
+        </button>
 
         <div class="area-tema">
-            <button id="tasto-notte" class="click"><i class="fas fa-moon"></i> <span>Passa alla modalità notte</span></button>
+            <button id="tasto-notte" class="click">
+                <i class="fas fa-moon"></i> <span>Passa alla modalità notte</span>
+            </button>
         </div>
     </main>
 
     <footer><p>Informatica • Matteo Nobile • 2026</p></footer>
 
     <script>
-        // --- LOGICA PARTE B: jQuery fadeIn ---
+        // ALERT ORIGINALE
+        alert("Benvenuto nel mio Linktree Interattivo!");
+
+        // LOGICA jQuery PARTE B (FadeIn Tabella)
         $(document).ready(function() {
             $(".tabella-orari").hide().fadeIn(2000);
         });
 
-        // --- TUA LOGICA ORIGINALE ---
         const oggPunt = document.getElementById('punt-pers');
         const oggCorpo = document.body;
         const oggTela = document.getElementById('sfond-anim');
         const oggCont = oggTela.getContext('2d');
 
+        // Puntatore e Luce (Codice Originale)
         document.addEventListener('mousemove', (e) => {
             oggPunt.style.left = e.clientX + 'px';
             oggPunt.style.top = e.clientY + 'px';
@@ -126,23 +209,24 @@
             });
         });
 
+        // Hover puntatore
         document.querySelectorAll('.click').forEach(el => {
             el.addEventListener('mouseenter', () => oggCorpo.classList.add('punt-su'));
             el.addEventListener('mouseleave', () => oggCorpo.classList.remove('punt-su'));
         });
 
-        // --- LOGICA PARTE B: Validazione Email ---
+        // VALIDAZIONE EMAIL PARTE B
         document.getElementById('form-contatti').addEventListener('submit', function(e) {
             const email = document.getElementById('email-campo').value;
             if (!email.includes('@') || !email.includes('.')) {
                 e.preventDefault();
-                alert("Errore: Inserisci un'email valida per continuare.");
+                alert("Errore: Inserisci un'email valida!");
             } else {
-                alert("Messaggio inviato con successo!");
+                alert("Grazie! Messaggio ricevuto.");
             }
         });
 
-        // Dark Mode
+        // Cambio Tema (Codice Originale)
         const btnTem = document.getElementById('tasto-notte');
         btnTem.addEventListener('click', () => {
             oggCorpo.classList.toggle('notte-on');
@@ -151,16 +235,37 @@
             btnTem.querySelector('i').className = isNotte ? "fas fa-sun" : "fas fa-moon";
         });
 
-        // Effetto icone (Festa) - accorciato per brevità
+        // EFFETTO CADUTA ICONE (Codice Originale)
         let lar, alt, col, goc;
         const icone = ["😄", "😊", "😎", "🤩", "✨", "🎈"]; 
         let timer = null;
-        function avvio() { lar = oggTela.width = window.innerWidth; alt = oggTela.height = window.innerHeight; col = Math.floor(lar / 35); goc = new Array(col).fill(0).map(() => Math.random() * -15); }
-        function disegna() { oggCont.clearRect(0, 0, lar, alt); oggCont.font = '24px Arial'; for (let i = 0; i < goc.length; i++) { oggCont.fillText(icone[i % icone.length], i * 35, goc[i] * 35); if (goc[i] * 35 > alt) goc[i] = -2; goc[i] += 0.25; } }
+        function avvio() {
+            lar = oggTela.width = window.innerWidth;
+            alt = oggTela.height = window.innerHeight;
+            col = Math.floor(lar / 35);
+            goc = new Array(col).fill(0).map(() => Math.random() * -15);
+        }
+        function disegna() {
+            oggCont.clearRect(0, 0, lar, alt);
+            oggCont.font = '24px Arial';
+            for (let i = 0; i < goc.length; i++) {
+                oggCont.fillText(icone[i % icone.length], i * 35, goc[i] * 35);
+                if (goc[i] * 35 > alt) goc[i] = -2;
+                goc[i] += 0.25;
+            }
+        }
         document.getElementById('tasto-festa').addEventListener('click', () => {
             if (oggCorpo.classList.contains('anim-on')) return;
-            oggCorpo.classList.add('anim-on'); avvio(); timer = setInterval(disegna, 30);
-            setTimeout(() => { oggCorpo.classList.remove('anim-on'); setTimeout(() => { clearInterval(timer); oggCont.clearRect(0, 0, lar, alt); }, 1000); }, 5000);
+            alert("Non sapevo cosa mettere, ma volevo strapparti un sorriso!");
+            oggCorpo.classList.add('anim-on');
+            avvio();
+            timer = setInterval(disegna, 30);
+            setTimeout(() => {
+                oggCorpo.classList.remove('anim-on');
+                setTimeout(() => { 
+                    clearInterval(timer); timer = null; oggCont.clearRect(0, 0, lar, alt); 
+                }, 1000);
+            }, 5000);
         });
     </script>
 </body>
