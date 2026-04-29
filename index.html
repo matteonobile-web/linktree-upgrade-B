@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        /* --- TUO STILE ORIGINALE --- */
+        /* --- STILI ORIGINALI --- */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
@@ -92,24 +92,17 @@
 
         footer { margin-top: auto; padding: 20px 0; color: rgba(255,255,255,0.3); font-size: 0.6rem; text-transform: uppercase; text-align: center; }
 
-        /* --- NUOVO STILE TABELLA FSL (Elegante e Trasparente) --- */
+        /* --- STILE TABELLA CON BORDI (Richiesto) --- */
         .tabella-fsl { 
-            width: 100%; border-collapse: separate; border-spacing: 0 8px; margin: 20px 0; 
+            width: 100%; border-collapse: collapse; margin: 20px 0; 
+            background: rgba(255, 255, 255, 0.05); color: #fff; font-size: 0.85rem; 
+            border-radius: 10px; overflow: hidden;
         }
-        .tabella-fsl th { 
-            color: rgba(255,255,255,0.5); font-size: 0.65rem; text-transform: uppercase; 
-            letter-spacing: 1px; padding: 10px; text-align: left; 
-        }
-        .tabella-fsl td { 
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px);
-            padding: 12px; color: #fff; font-size: 0.8rem;
-            border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .tabella-fsl td:first-child { border-left: 1px solid rgba(255,255,255,0.1); border-radius: 12px 0 0 12px; font-weight: 600; }
-        .tabella-fsl td:last-child { border-right: 1px solid rgba(255,255,255,0.1); border-radius: 0 12px 12px 0; text-align: right; color: #e74c3c; }
-        body.notte-on .tabella-fsl td:last-child { color: #3498db; }
+        .tabella-fsl th, .tabella-fsl td { border: 1px solid rgba(255,255,255,0.1); padding: 12px; text-align: left; }
+        .tabella-fsl th { background: rgba(231, 76, 60, 0.3); text-transform: uppercase; font-size: 0.7rem; }
+        body.notte-on .tabella-fsl th { background: rgba(52, 152, 219, 0.3); }
 
-        /* Stile Form */
+        /* Form Style */
         .form-box { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
         .input-stile { 
             padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); 
@@ -139,15 +132,15 @@
             <thead>
                 <tr>
                     <th>Attività / Progetto</th>
-                    <th>Periodo</th>
+                    <th>Anno/Periodo</th>
                 </tr>
             </thead>
             <tbody>
                 <tr><td>Studio guidato: tutor allo studio</td><td>2023 / 2024</td></tr>
+                <tr><td>Progetto "Denaro falso"</td><td>Maggio 2025</td></tr>
+                <tr><td>Giovani & Impresa</td><td>Novembre 2025</td></tr>
                 <tr><td>Scrutatore di seggio elettorale</td><td>2025 - 2026</td></tr>
                 <tr><td>Progetto "Il Sapere che Illumina"</td><td>2026</td></tr>
-                <tr><td>Giovani & Impresa</td><td>Nov 2025</td></tr>
-                <tr><td>Progetto "Denaro falso"</td><td>Mag 2025</td></tr>
             </tbody>
         </table>
 
@@ -172,10 +165,9 @@
     <footer><p>Informatica • Matteo Nobile • 2026</p></footer>
 
     <script>
-        // ALERT INIZIALE
         alert("Benvenuto nel mio Linktree Interattivo!");
 
-        // JQUERY: DISSOLVENZA TABELLA
+        // JQUERY: EFFETTO FADEIN TABELLA
         $(document).ready(function() {
             $(".tabella-fsl").hide().fadeIn(2000);
         });
@@ -185,7 +177,6 @@
         const oggTela = document.getElementById('sfond-anim');
         const oggCont = oggTela.getContext('2d');
 
-        // PUNTATORE E SCIA MOUSE
         document.addEventListener('mousemove', (e) => {
             oggPunt.style.left = e.clientX + 'px';
             oggPunt.style.top = e.clientY + 'px';
@@ -201,18 +192,17 @@
             el.addEventListener('mouseleave', () => oggCorpo.classList.remove('punt-su'));
         });
 
-        // VALIDAZIONE EMAIL FORM
+        // LOGICA FORM E VALIDAZIONE EMAIL
         document.getElementById('form-contatti').addEventListener('submit', function(e) {
             const email = document.getElementById('email-campo').value;
             if (!email.includes('@') || !email.includes('.')) {
                 e.preventDefault();
-                alert("Attenzione: Inserisci un'email valida!");
+                alert("Errore: Inserisci un'email valida!");
             } else {
                 alert("Messaggio inviato correttamente!");
             }
         });
 
-        // TEMA NOTTE
         const btnTem = document.getElementById('tasto-notte');
         btnTem.addEventListener('click', () => {
             oggCorpo.classList.toggle('notte-on');
@@ -221,7 +211,6 @@
             btnTem.querySelector('i').className = isNotte ? "fas fa-sun" : "fas fa-moon";
         });
 
-        // PIOGGIA DI ICONE
         let lar, alt, col, goc;
         const icone = ["😄", "😊", "😎", "🤩", "✨", "🎈"]; 
         let timer = null;
