@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        /* --- STILI ORIGINALI --- */
+        /* BASE E FRECCIA */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
@@ -21,17 +21,20 @@
             transition: 0.4s; overflow-x: hidden; position: relative;
         }
 
+        /* Sfondo animato icone */
         #sfond-anim {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out;
         }
         body.anim-on #sfond-anim { opacity: 1; z-index: 1; }
 
+        /* Filtro scuro per notte */
         body.notte-on::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             backdrop-filter: brightness(30%); -webkit-backdrop-filter: brightness(30%); z-index: -1;
         }
 
+        /* Puntatore personalizzato */
         #punt-pers {
             position: fixed; width: 12px; height: 12px;
             background: rgba(255, 255, 255, 0.8); border-radius: 50%;
@@ -43,6 +46,7 @@
         }
 
         header, .box-link, footer { position: relative; z-index: 10; }
+
         header { text-align: center; margin: 20px 0; }
         .cerchio-foto {
             width: 110px; height: 110px; margin: 0 auto;
@@ -57,6 +61,7 @@
 
         .box-link { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
 
+        /* Bottoni con effetto luce */
         .btn-luce {
             position: relative; display: flex; align-items: center; justify-content: center;
             text-decoration: none; padding: 18px; border-radius: 14px;
@@ -83,16 +88,7 @@
         .btn-luce i { margin-right: 12px; font-size: 1.3rem; color: #e74c3c; z-index: 1; }
         body.notte-on .btn-luce i { color: #3498db; }
         
-        .area-tema { margin-top: 25px; display: flex; justify-content: center; }
-        #tasto-notte {
-            padding: 10px 20px; border-radius: 30px; font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2);
-            color: #fff; display: flex; align-items: center; gap: 8px; transition: 0.3s;
-        }
-
-        footer { margin-top: auto; padding: 20px 0; color: rgba(255,255,255,0.3); font-size: 0.6rem; text-transform: uppercase; text-align: center; }
-
-        /* --- STILE TABELLA CON BORDI (Richiesto) --- */
+        /* STILE TABELLA (Richiesto Checklist) */
         .tabella-fsl { 
             width: 100%; border-collapse: collapse; margin: 20px 0; 
             background: rgba(255, 255, 255, 0.05); color: #fff; font-size: 0.85rem; 
@@ -102,12 +98,22 @@
         .tabella-fsl th { background: rgba(231, 76, 60, 0.3); text-transform: uppercase; font-size: 0.7rem; }
         body.notte-on .tabella-fsl th { background: rgba(52, 152, 219, 0.3); }
 
-        /* Form Style */
+        /* Stile Form Contatti */
         .form-box { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
         .input-stile { 
             padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); 
             background: rgba(255,255,255,0.1); color: white; font-family: 'Poppins', sans-serif;
         }
+        .input-stile::placeholder { color: rgba(255,255,255,0.4); }
+
+        .area-tema { margin-top: 25px; display: flex; justify-content: center; }
+        #tasto-notte {
+            padding: 10px 20px; border-radius: 30px; font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+
+        footer { margin-top: auto; padding: 20px 0; color: rgba(255,255,255,0.3); font-size: 0.6rem; text-transform: uppercase; text-align: center; }
     </style>
 </head>
 <body style="background-image: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%), url('https://preview.redd.it/whats-yalls-pc-wallpapers-ill-go-first-v0-1uhd4skp2aud1.jpg?width=3840&format=pjpg&auto=webp&s=4592cda3a575bbceecb9bc66e045044d2e2f4783');">
@@ -116,17 +122,33 @@
     <div id="punt-pers"></div>
 
     <header>
-        <div class="cerchio-foto"><img src="foto-profilo.jpg" alt="Matteo" class="img-prof"></div>
+        <div class="cerchio-foto">
+            <img src="foto-profilo.jpg" alt="Matteo" class="img-prof">
+        </div>
         <h1>@_matteo_nobile_</h1>
         <p class="sotto-tit">Liceo Scientifico - Scienze Applicate</p>
     </header>
 
     <main class="box-link">
-        <a href="https://torricellimi.edu.it/notizie/732-pannelli-solari-sul-tetto-della-scuola" target="_blank" rel="noopener" class="btn-luce click"><i class="fas fa-solar-panel"></i> <span>Progetto Pannelli Solari</span></a>
-        <a href="mailto:matteonobile@teamdigitale.torricellimi.edu.it" class="btn-luce click"><i class="fas fa-envelope"></i> <span>Scrivimi via Email</span></a>
-        <a href="https://www.instagram.com/la_storia_insegna_?igsh=ZzhnazhtNDBmdTA2" target="_blank" rel="noopener" class="btn-luce click"><i class="fab fa-instagram"></i> <span>la_storia_insegna_</span></a>
-        <a href="https://it.linkedin.com/in/matteo-nobile-456ba43b9" target="_blank" rel="noopener" class="btn-luce click"><i class="fab fa-linkedin"></i> <span>Profilo Professionale</span></a>
-        <a href="https://www.piazzaarmerina.org/agenda-eventi/palio-dei-normanni" target="_blank" rel="noopener" class="btn-luce click"><i class="fas fa-shield-alt"></i> <span>Palio dei Normanni: Figurante</span></a>
+        <a href="https://torricellimi.edu.it/notizie/732-pannelli-solari-sul-tetto-della-scuola" target="_blank" rel="noopener" class="btn-luce click">
+            <i class="fas fa-solar-panel"></i> <span>Progetto Pannelli Solari</span>
+        </a>
+
+        <a href="mailto:matteonobile@teamdigitale.torricellimi.edu.it" class="btn-luce click">
+            <i class="fas fa-envelope"></i> <span>Scrivimi via Email</span>
+        </a>
+        
+        <a href="https://www.instagram.com/la_storia_insegna_?igsh=ZzhnazhtNDBmdTA2" target="_blank" rel="noopener" class="btn-luce click">
+            <i class="fab fa-instagram"></i> <span>la_storia_insegna_</span>
+        </a>
+        
+        <a href="https://it.linkedin.com/in/matteo-nobile-456ba43b9" target="_blank" rel="noopener" class="btn-luce click">
+            <i class="fab fa-linkedin"></i> <span>Profilo Professionale</span>
+        </a>
+
+        <a href="https://www.piazzaarmerina.org/agenda-eventi/palio-dei-normanni" target="_blank" rel="noopener" class="btn-luce click">
+            <i class="fas fa-shield-alt"></i> <span>Palio dei Normanni: Figurante</span>
+        </a>
 
         <table class="tabella-fsl">
             <thead>
@@ -144,30 +166,37 @@
             </tbody>
         </table>
 
-        <form id="form-contatti" class="form-box">
-            <input type="text" placeholder="Nome" class="input-stile" required>
-            <input type="email" id="email-campo" placeholder="Email" class="input-stile" required>
-            <textarea placeholder="Messaggio" class="input-stile" rows="2"></textarea>
-            <button type="submit" class="btn-luce click" style="border: none; background: rgba(231, 76, 60, 0.2);">
+        <form id="form-contatti" action="https://formspree.io/f/mvzlppkw" method="POST" class="form-box">
+            <input type="text" name="nome" placeholder="Il tuo Nome" class="input-stile" required>
+            <input type="email" id="email-campo" name="email" placeholder="La tua Email" class="input-stile" required>
+            <textarea name="messaggio" placeholder="Inserisci il tuo messaggio..." class="input-stile" rows="2" required></textarea>
+            <button type="submit" class="btn-luce click" style="border: none; background: rgba(231, 76, 60, 0.2); width: 100%;">
                 <i class="fas fa-paper-plane"></i> <span>Invia Messaggio</span>
             </button>
         </form>
 
-        <a href="credits.html" class="btn-luce click"><i class="fas fa-info-circle"></i> <span>Visualizza Credits</span></a>
+        <a href="credits.html" class="btn-luce click">
+            <i class="fas fa-info-circle"></i> <span>Visualizza Credits</span>
+        </a>
 
-        <button id="tasto-festa" class="btn-luce click"><i class="fas fa-rocket"></i> <span> Modalità Allegria: ON</span></button>
+        <button id="tasto-festa" class="btn-luce click">
+            <i class="fas fa-rocket"></i> <span> Modalità Allegria: ON</span>
+        </button>
 
         <div class="area-tema">
-            <button id="tasto-notte" class="click"><i class="fas fa-moon"></i> <span>Passa alla modalità notte</span></button>
+            <button id="tasto-notte" class="click">
+                <i class="fas fa-moon"></i> <span>Passa alla modalità notte</span>
+            </button>
         </div>
     </main>
 
     <footer><p>Informatica • Matteo Nobile • 2026</p></footer>
 
     <script>
+        // Alert di Benvenuto Originale
         alert("Benvenuto nel mio Linktree Interattivo!");
 
-        // JQUERY: EFFETTO FADEIN TABELLA
+        // JQUERY: EFFETTO FADEIN (Richiesto Checklist Parte B)
         $(document).ready(function() {
             $(".tabella-fsl").hide().fadeIn(2000);
         });
@@ -177,6 +206,7 @@
         const oggTela = document.getElementById('sfond-anim');
         const oggCont = oggTela.getContext('2d');
 
+        // Muove il puntatore e la luce sui tasti
         document.addEventListener('mousemove', (e) => {
             oggPunt.style.left = e.clientX + 'px';
             oggPunt.style.top = e.clientY + 'px';
@@ -187,22 +217,23 @@
             });
         });
 
+        // Ingrossa puntatore quando passi sopra i tasti
         document.querySelectorAll('.click').forEach(el => {
             el.addEventListener('mouseenter', () => oggCorpo.classList.add('punt-su'));
             el.addEventListener('mouseleave', () => oggCorpo.classList.remove('punt-su'));
         });
 
-        // LOGICA FORM E VALIDAZIONE EMAIL
+        // VALIDAZIONE EMAIL JAVASCRIPT (Richiesto Checklist)
         document.getElementById('form-contatti').addEventListener('submit', function(e) {
             const email = document.getElementById('email-campo').value;
+            // Blocca l'invio se manca @ o il punto
             if (!email.includes('@') || !email.includes('.')) {
                 e.preventDefault();
-                alert("Errore: Inserisci un'email valida!");
-            } else {
-                alert("Messaggio inviato correttamente!");
+                alert("Errore: Inserisci un indirizzo email valido!");
             }
         });
 
+        // Cambia tema Giorno/Notte
         const btnTem = document.getElementById('tasto-notte');
         btnTem.addEventListener('click', () => {
             oggCorpo.classList.toggle('notte-on');
@@ -211,15 +242,18 @@
             btnTem.querySelector('i').className = isNotte ? "fas fa-sun" : "fas fa-moon";
         });
 
+        // EFFETTO CADUTA ICONE (Codice Originale)
         let lar, alt, col, goc;
         const icone = ["😄", "😊", "😎", "🤩", "✨", "🎈"]; 
         let timer = null;
+
         function avvio() {
             lar = oggTela.width = window.innerWidth;
             alt = oggTela.height = window.innerHeight;
             col = Math.floor(lar / 35);
             goc = new Array(col).fill(0).map(() => Math.random() * -15);
         }
+
         function disegna() {
             oggCont.clearRect(0, 0, lar, alt);
             oggCont.font = '24px Arial';
@@ -229,6 +263,7 @@
                 goc[i] += 0.25;
             }
         }
+
         document.getElementById('tasto-festa').addEventListener('click', () => {
             if (oggCorpo.classList.contains('anim-on')) return;
             alert("Non sapevo cosa mettere, ma volevo strapparti un sorriso!");
@@ -238,7 +273,9 @@
             setTimeout(() => {
                 oggCorpo.classList.remove('anim-on');
                 setTimeout(() => { 
-                    clearInterval(timer); timer = null; oggCont.clearRect(0, 0, lar, alt); 
+                    clearInterval(timer); 
+                    timer = null; 
+                    oggCont.clearRect(0, 0, lar, alt); 
                 }, 1000);
             }, 5000);
         });
